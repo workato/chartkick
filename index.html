@@ -3,17 +3,23 @@
   <head>
     <title>Chartkick</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="github.css">
     <style>
       body {
-        padding: 20px 0px;
+        padding: 0 0 40px 0;
+        font-size: 16px;
+        line-height: 1.6;
       }
 
       .container-fluid {
-        max-width: 800px;
+        max-width: 900px;
         margin-left: auto;
         margin-right: auto;
+      }
+
+      h1 {
+        font-size: 42px;
       }
 
       h2, h3 {
@@ -24,32 +30,39 @@
         margin-top: 1.5em;
         margin-bottom: 1.5em;
       }
+
+      pre {
+        font-size: 14px;
+        border: none;
+      }
+
+      .alert {
+        padding: 8px 10px;
+        margin-bottom: 10px;
+        border: none;
+      }
     </style>
-    <script src="//www.google.com/jsapi"></script>
+    <script src="https://www.google.com/jsapi"></script>
     <script src="chartkick.js"></script>
   </head>
   <body>
-    <a href="https://github.com/ankane/chartkick"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 1000;" src="ribbon.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/ankane/chartkick" style="position: fixed; top: 30px; right: 30px; border: 0; z-index: 1000; color: #999;">View on Github</a>
 
     <div class="container-fluid">
       <div class="page-header">
         <h1>Chartkick</h1>
-        <p class="lead">Create beautiful Javascript charts with one line of Ruby</p>
-        <div class="alert">Also available in <a href="https://github.com/mher/chartkick.py">Python</a> and pure <a href="https://github.com/ankane/chartkick.js">JavaScript</a></div>
+        <p class="lead" style="margin-top: 20px;">Create beautiful Javascript charts with one line of Ruby</p>
+        <div class="alert alert-info">Also available in <a href="https://github.com/mher/chartkick.py">Python</a> and pure <a href="https://github.com/ankane/chartkick.js">JavaScript</a></div>
       </div>
 
 <!-- START README -->
-
-<p>Simplify your admin dashboard - create new charts in seconds!</p>
-
-<p>Works with Rails, Sinatra and most browsers (including IE 6)</p>
 
 <p><img class="emoji" title=":two_hearts:" alt=":two_hearts:" src="https://assets-cdn.github.com/images/icons/emoji/two_hearts.png" height="20" width="20" align="absmiddle"> A perfect companion to <a href="https://github.com/ankane/groupdate">groupdate</a>, <a href="https://github.com/ankane/hightop">hightop</a>, and <a href="https://github.com/ankane/active_median">active_median</a></p>
 
 <p><img class="emoji" title=":speech_balloon:" alt=":speech_balloon:" src="https://github.global.ssl.fastly.net/images/icons/emoji/speech_balloon.png" height="20" width="20" align="absmiddle"> Get <a href="http://chartkick.us7.list-manage.com/subscribe?u=952c861f99eb43084e0a49f98&amp;id=6ea6541e8e&amp;group%5B0%5D%5B2%5D=true">handcrafted updates</a> for new features</p>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="mini-icon mini-icon-link"></span></a>Usage</h2>
+<a name="usage" class="anchor" href="#usage"><span class="mini-icon mini-icon-link"></span></a>Charts</h2>
 
 <p>Line chart</p>
 
@@ -60,8 +73,8 @@ new Chartkick.LineChart("chart-1", {"2013-02-10 00:00:00 -0800":11,"2013-02-11 0
 <div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="no">User</span><span class="o">.</span><span class="n">group_by_day</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
 
-<div class="alert">
-  You must have <a href="https://github.com/ankane/groupdate">groupdate</a> installed to use the group_by_day method
+<div class="alert alert-info">
+  Install <a href="https://github.com/ankane/groupdate">Groupdate</a> to use the group_by_day method
 </div>
 
 <p>Pie chart</p>
@@ -140,7 +153,7 @@ new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",2
 new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10 00:00:00 -0800":3,"2013-02-17 00:00:00 -0800":3,"2013-02-24 00:00:00 -0800":3,"2013-03-03 00:00:00 -0800":1,"2013-03-10 00:00:00 -0800":4,"2013-03-17 00:00:00 -0700":3,"2013-03-24 00:00:00 -0700":2,"2013-03-31 00:00:00 -0700":3}},{"name":"Go to concert","data":{"2013-02-10 00:00:00 -0800":0,"2013-02-17 00:00:00 -0800":0,"2013-02-24 00:00:00 -0800":0,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":2,"2013-03-17 00:00:00 -0700":1,"2013-03-24 00:00:00 -0700":0,"2013-03-31 00:00:00 -0700":0}},{"name":"Wash face","data":{"2013-02-10 00:00:00 -0800":0,"2013-02-17 00:00:00 -0800":1,"2013-02-24 00:00:00 -0800":0,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":0,"2013-03-17 00:00:00 -0700":1,"2013-03-24 00:00:00 -0700":0,"2013-03-31 00:00:00 -0700":1}},{"name":"Call parents","data":{"2013-02-10 00:00:00 -0800":5,"2013-02-17 00:00:00 -0800":3,"2013-02-24 00:00:00 -0800":2,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":0,"2013-03-17 00:00:00 -0700":1,"2013-03-24 00:00:00 -0700":1,"2013-03-31 00:00:00 -0700":0}},{"name":"Eat breakfast","data":{"2013-02-10 00:00:00 -0800":3,"2013-02-17 00:00:00 -0800":2,"2013-02-24 00:00:00 -0800":1,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":2,"2013-03-17 00:00:00 -0700":2,"2013-03-24 00:00:00 -0700":3,"2013-03-31 00:00:00 -0700":0}}], {});
 </script>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="vi">@goals</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">goal</span><span class="o">|</span>
+<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="vi">@goals</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">goal</span><span class="o">|</span>
     <span class="p">{</span><span class="nb">name</span><span class="p">:</span> <span class="n">goal</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="ss">data</span><span class="p">:</span> <span class="n">goal</span><span class="o">.</span><span class="n">feats</span><span class="o">.</span><span class="n">group_by_week</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">}</span>
 <span class="p">}</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
@@ -274,7 +287,7 @@ new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10 00:00:
 
 <p>For Google Charts, use:</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">"//www.google.com/jsapi"</span><span class="p">,</span> <span class="s2">"chartkick"</span> <span class="cp">%&gt;</span><span class="x"></span>
+<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">"https://www.google.com/jsapi"</span><span class="p">,</span> <span class="s2">"chartkick"</span> <span class="cp">%&gt;</span><span class="x"></span>
 </pre></div>
 
 <p>If you prefer Highcharts, use:</p>
@@ -294,7 +307,7 @@ new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10 00:00:
 
 <p>For Rails 2.3, you must use a script tag for Google Charts due to <a href="https://rails.lighthouseapp.com/projects/8994/tickets/1664-javascript_include_tag-shouldnt-append-a-js-onto-external-urls">this bug</a>.</p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//www.google.com/jsapi"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://www.google.com/jsapi"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
 
 <h3>
@@ -302,7 +315,7 @@ new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10 00:00:
 
 <p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//www.google.com/jsapi"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://www.google.com/jsapi"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"chartkick.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 </pre></div>
 
