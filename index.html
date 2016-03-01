@@ -44,6 +44,11 @@
     </style>
     <script src="https://www.google.com/jsapi"></script>
     <script src="chartkick.js"></script>
+
+    <link rel="stylesheet" href="github.css">
+    <script src="highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
   </head>
   <body>
     <a href="https://github.com/ankane/chartkick" style="position: fixed; top: 30px; right: 30px; border: 0; z-index: 1000; color: #999;">View on Github</a>
@@ -61,8 +66,7 @@
 
 <p><img class="emoji" title=":speech_balloon:" alt=":speech_balloon:" src="https://github.global.ssl.fastly.net/images/icons/emoji/speech_balloon.png" height="20" width="20" align="absmiddle"> Get <a href="http://chartkick.us7.list-manage.com/subscribe?u=952c861f99eb43084e0a49f98&amp;id=6ea6541e8e&amp;group%5B0%5D%5B2%5D=true">handcrafted updates</a> for new features</p>
 
-<h2>
-<a name="usage" class="anchor" href="#usage"><span class="mini-icon mini-icon-link"></span></a>Charts</h2>
+<h2 id="charts">Charts</h2>
 
 <p>Line chart</p>
 
@@ -70,8 +74,8 @@
 new Chartkick.LineChart("chart-1", {"2013-02-10 00:00:00 -0800":11,"2013-02-11 00:00:00 -0800":6,"2013-02-12 00:00:00 -0800":3,"2013-02-13 00:00:00 -0800":2,"2013-02-14 00:00:00 -0800":5,"2013-02-15 00:00:00 -0800":3,"2013-02-16 00:00:00 -0800":8,"2013-02-17 00:00:00 -0800":6,"2013-02-18 00:00:00 -0800":6,"2013-02-19 00:00:00 -0800":12,"2013-02-20 00:00:00 -0800":5,"2013-02-21 00:00:00 -0800":5,"2013-02-22 00:00:00 -0800":3,"2013-02-23 00:00:00 -0800":1,"2013-02-24 00:00:00 -0800":10,"2013-02-25 00:00:00 -0800":1,"2013-02-26 00:00:00 -0800":3,"2013-02-27 00:00:00 -0800":2,"2013-02-28 00:00:00 -0800":3,"2013-03-01 00:00:00 -0800":2,"2013-03-02 00:00:00 -0800":8}, {});
 </script>
 
-<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="no">User</span><span class="o">.</span><span class="n">group_by_day</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart User.group_by_day(:created_at).count %&gt;
+</code></pre>
 
 <div class="alert alert-info">
   Install <a href="https://github.com/ankane/groupdate">Groupdate</a> to use the group_by_day method
@@ -83,8 +87,8 @@ new Chartkick.LineChart("chart-1", {"2013-02-10 00:00:00 -0800":11,"2013-02-11 0
 new Chartkick.PieChart(document.getElementById("chart-2"), [["Blueberry",44],["Strawberry",23],["Banana",22],["Apple",21],["Grape",13]], {});
 </script>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">pie_chart</span> <span class="no">Goal</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= pie_chart Goal.group(:name).count %&gt;
+</code></pre>
 
 <p>Column chart</p>
 
@@ -92,8 +96,8 @@ new Chartkick.PieChart(document.getElementById("chart-2"), [["Blueberry",44],["S
 new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",20],["5",13],["6",27]], {});
 </script>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">column_chart</span> <span class="no">Task</span><span class="o">.</span><span class="n">group_by_hour_of_day</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="s2">"%l %P"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= column_chart Task.group_by_hour_of_day(:created_at, format: &quot;%l %P&quot;).count %&gt;
+</code></pre>
 
 <p>Bar chart</p>
 
@@ -104,8 +108,8 @@ new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",2
   new Chartkick.BarChart("chart-4", [["X-Small",5],["Small",27],["Medium",10],["Large",14],["X-Large",10]], {});
 </script>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">bar_chart</span> <span class="no">Shirt</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="ss">:size</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="ss">:price</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= bar_chart Shirt.group(:size).sum(:price) %&gt;
+</code></pre>
 
 <p>Area chart</p>
 
@@ -116,8 +120,20 @@ new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",2
   new Chartkick.AreaChart("chart-5", {"2013-07-27 07:00:00 UTC":2,"2013-07-27 07:01:00 UTC":5,"2013-07-27 07:02:00 UTC":3,"2013-07-27 07:03:00 UTC":3,"2013-07-27 07:04:00 UTC":2,"2013-07-27 07:05:00 UTC":5,"2013-07-27 07:06:00 UTC":1,"2013-07-27 07:07:00 UTC":3,"2013-07-27 07:08:00 UTC":4,"2013-07-27 07:09:00 UTC":3,"2013-07-27 07:10:00 UTC":2}, {});
 </script>
 
-<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">area_chart</span> <span class="no">Visit</span><span class="o">.</span><span class="n">group_by_minute</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="ss">:load_time</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= area_chart Visit.group_by_minute(:created_at).maximum(:load_time) %&gt;
+</code></pre>
+
+<p>Scatter chart</p>
+
+<div id="chart-8" style="height: 300px; text-align: center; color: #999; line-height: 300px; font-size: 14px; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif;">
+  Loading...
+</div>
+<script>
+  new Chartkick.ScatterChart("chart-8", [[174.0, 80.0], [176.5, 82.3], [180.3, 73.6], [167.6, 74.1], [188.0, 85.9]]);
+</script>
+
+<pre><code class="erb">&lt;%= scatter_chart City.pluck(:size, :population) %&gt;
+</code></pre>
 
 <p>Geo chart</p>
 
@@ -128,8 +144,8 @@ new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",2
   new Chartkick.GeoChart("chart-6", [["United States",101],["Russia",63],["Germany",65],["China",50],["France",37],["Italy",35],["Australia",41]], {});
 </script>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">geo_chart</span> <span class="no">Medal</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="ss">:country</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= geo_chart Medal.group(:country).count %&gt;
+</code></pre>
 
 <p>Timeline</p>
 
@@ -140,12 +156,12 @@ new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",2
   new Chartkick.Timeline("chart-timeline", [["Washington", "1789-04-29", "1797-03-03"],["Adams", "1797-03-03", "1801-03-03"],["Jefferson", "1801-03-03", "1809-03-03"]]);
 </script>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">timeline</span> <span class="o">[</span>
-  <span class="o">[</span><span class="s2">"Washington"</span><span class="p">,</span> <span class="s2">"1789-04-29"</span><span class="p">,</span> <span class="s2">"1797-03-03"</span><span class="o">]</span><span class="p">,</span>
-  <span class="o">[</span><span class="s2">"Adams"</span><span class="p">,</span> <span class="s2">"1797-03-03"</span><span class="p">,</span> <span class="s2">"1801-03-03"</span><span class="o">]</span><span class="p">,</span>
-  <span class="o">[</span><span class="s2">"Jefferson"</span><span class="p">,</span> <span class="s2">"1801-03-03"</span><span class="p">,</span> <span class="s2">"1809-03-03"</span><span class="o">]</span>
-<span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= timeline [
+  [&quot;Washington&quot;, &quot;1789-04-29&quot;, &quot;1797-03-03&quot;],
+  [&quot;Adams&quot;, &quot;1797-03-03&quot;, &quot;1801-03-03&quot;],
+  [&quot;Jefferson&quot;, &quot;1801-03-03&quot;, &quot;1809-03-03&quot;]
+] %&gt;
+</code></pre>
 
 <p>Multiple series</p>
 
@@ -153,220 +169,215 @@ new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",2
 new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10 00:00:00 -0800":3,"2013-02-17 00:00:00 -0800":3,"2013-02-24 00:00:00 -0800":3,"2013-03-03 00:00:00 -0800":1,"2013-03-10 00:00:00 -0800":4,"2013-03-17 00:00:00 -0700":3,"2013-03-24 00:00:00 -0700":2,"2013-03-31 00:00:00 -0700":3}},{"name":"Go to concert","data":{"2013-02-10 00:00:00 -0800":0,"2013-02-17 00:00:00 -0800":0,"2013-02-24 00:00:00 -0800":0,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":2,"2013-03-17 00:00:00 -0700":1,"2013-03-24 00:00:00 -0700":0,"2013-03-31 00:00:00 -0700":0}},{"name":"Wash face","data":{"2013-02-10 00:00:00 -0800":0,"2013-02-17 00:00:00 -0800":1,"2013-02-24 00:00:00 -0800":0,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":0,"2013-03-17 00:00:00 -0700":1,"2013-03-24 00:00:00 -0700":0,"2013-03-31 00:00:00 -0700":1}},{"name":"Call parents","data":{"2013-02-10 00:00:00 -0800":5,"2013-02-17 00:00:00 -0800":3,"2013-02-24 00:00:00 -0800":2,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":0,"2013-03-17 00:00:00 -0700":1,"2013-03-24 00:00:00 -0700":1,"2013-03-31 00:00:00 -0700":0}},{"name":"Eat breakfast","data":{"2013-02-10 00:00:00 -0800":3,"2013-02-17 00:00:00 -0800":2,"2013-02-24 00:00:00 -0800":1,"2013-03-03 00:00:00 -0800":0,"2013-03-10 00:00:00 -0800":2,"2013-03-17 00:00:00 -0700":2,"2013-03-24 00:00:00 -0700":3,"2013-03-31 00:00:00 -0700":0}}], {});
 </script>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="vi">@goals</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">goal</span><span class="o">|</span>
-    <span class="p">{</span><span class="nb">name</span><span class="p">:</span> <span class="n">goal</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="ss">data</span><span class="p">:</span> <span class="n">goal</span><span class="o">.</span><span class="n">feats</span><span class="o">.</span><span class="n">group_by_week</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">}</span>
-<span class="p">}</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart @goals.map { |goal|
+    {name: goal.name, data: goal.feats.group_by_week(:created_at).count}
+} %&gt;
+</code></pre>
 
 <p>or</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="no">Feat</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="ss">:goal_id</span><span class="p">)</span><span class="o">.</span><span class="n">group_by_week</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span><span class="o">.</span><span class="n">count</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart Feat.group(:goal_id).group_by_week(:created_at).count %&gt;
+</code></pre>
 
-<h3>
-<a name="user-content-say-goodbye-to-timeouts" class="anchor" href="#say-goodbye-to-timeouts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Say Goodbye To Timeouts</h3>
+<h3 id="say-goodbye-to-timeouts">Say Goodbye To Timeouts</h3>
 
 <p>Make your pages load super fast and stop worrying about timeouts.  Give each chart its own endpoint.</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">completed_tasks_charts_path</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart completed_tasks_charts_path %&gt;
+</code></pre>
 
 <p>And in your controller, pass the data as JSON.</p>
 
-<div class="highlight highlight-ruby"><pre><span class="k">class</span> <span class="nc">ChartsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
-  <span class="k">def</span> <span class="nf">completed_tasks</span>
-    <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="no">Task</span><span class="o">.</span><span class="n">group_by_day</span><span class="p">(</span><span class="ss">:completed_at</span><span class="p">)</span><span class="o">.</span><span class="n">count</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+<pre><code class="ruby">class ChartsController &lt; ApplicationController
+  def completed_tasks
+    render json: Task.group_by_day(:completed_at).count
+  end
+end
+</code></pre>
 
 <p><strong>Note:</strong> This feature requires <a href="http://jquery.com/">jQuery</a> or <a href="http://zeptojs.com/">Zepto</a> at the moment.</p>
 
 <p>For multiple series, add <code>chart_json</code> at the end.</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="no">Task</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="ss">:goal_id</span><span class="p">)</span><span class="o">.</span><span class="n">group_by_day</span><span class="p">(</span><span class="ss">:completed_at</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="o">.</span><span class="n">chart_json</span>
-</pre></div>
+<pre><code class="ruby">render json: Task.group(:goal_id).group_by_day(:completed_at).count.chart_json
+</code></pre>
 
-<h3>
-<a name="user-content-options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h3>
+<h3 id="options">Options</h3>
 
-<p>Id and height</p>
+<p>Id, width, and height</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="s2">"users-chart"</span><span class="p">,</span> <span class="ss">height</span><span class="p">:</span> <span class="s2">"500px"</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart data, id: &quot;users-chart&quot;, width: &quot;800px&quot;, height: &quot;500px&quot; %&gt;
+</code></pre>
 
 <p>Min and max values</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">min</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="ss">max</span><span class="p">:</span> <span class="mi">5000</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart data, min: 1000, max: 5000 %&gt;
+</code></pre>
 
 <p><code>min</code> defaults to 0 for charts with non-negative values. Use <code>nil</code> to let the charting library decide.</p>
 
 <p>Colors</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">colors</span><span class="p">:</span> <span class="o">[</span><span class="s2">"pink"</span><span class="p">,</span> <span class="s2">"#999"</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart data, colors: [&quot;pink&quot;, &quot;#999&quot;] %&gt;
+</code></pre>
 
 <p>Stacked columns or bars</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">column_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">stacked</span><span class="p">:</span> <span class="kp">true</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= column_chart data, stacked: true %&gt;
+</code></pre>
 
 <p>Discrete axis</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">discrete</span><span class="p">:</span> <span class="kp">true</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart data, discrete: true %&gt;
+</code></pre>
+
+<p>Label (for single series)</p>
+
+<pre><code class="erb">&lt;%= line_chart data, label: &quot;Value&quot; %&gt;
+</code></pre>
+
+<p>Axis titles</p>
+
+<pre><code class="erb">&lt;%= line_chart data, xtitle: &quot;Time&quot;, ytitle: &quot;Population&quot; %&gt;
+</code></pre>
 
 <p>You can pass options directly to the charting library with:</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">library</span><span class="p">:</span> <span class="p">{</span><span class="ss">backgroundColor</span><span class="p">:</span> <span class="s2">"#eee"</span><span class="p">}</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart data, library: {backgroundColor: &quot;#eee&quot;} %&gt;
+</code></pre>
 
 <p>See the documentation for <a href="https://developers.google.com/chart/interactive/docs/gallery">Google Charts</a> and <a href="http://api.highcharts.com/highcharts">Highcharts</a> for more info.</p>
 
-<h3>
-<a name="user-content-global-options" class="anchor" href="#global-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global Options</h3>
+<h3 id="global-options">Global Options</h3>
 
 <p>To set options for all of your charts, create an initializer <code>config/initializers/chartkick.rb</code> with:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="no">Chartkick</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="ss">height</span><span class="p">:</span> <span class="s2">"400px"</span><span class="p">,</span>
-  <span class="ss">colors</span><span class="p">:</span> <span class="o">[</span><span class="s2">"pink"</span><span class="p">,</span> <span class="s2">"#999"</span><span class="o">]</span>
-<span class="p">}</span>
-</pre></div>
+<pre><code class="ruby">Chartkick.options = {
+  height: &quot;400px&quot;,
+  colors: [&quot;pink&quot;, &quot;#999&quot;]
+}
+</code></pre>
 
 <p>Customize the html</p>
 
-<div class="highlight highlight-ruby"><pre><span class="no">Chartkick</span><span class="o">.</span><span class="n">options</span><span class="o">[</span><span class="ss">:html</span><span class="o">]</span> <span class="o">=</span> <span class="s1">'&lt;div id="%{id}" style="height: %{height};"&gt;Loading...&lt;/div&gt;'</span>
-</pre></div>
+<pre><code class="ruby">Chartkick.options[:html] = &#39;&lt;div id=&quot;%{id}&quot; style=&quot;height: %{height};&quot;&gt;Loading...&lt;/div&gt;&#39;
+</code></pre>
 
-<p>You capture the javascript in a content block with:</p>
+<p>You capture the JavaScript in a content block with:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="no">Chartkick</span><span class="o">.</span><span class="n">options</span><span class="o">[</span><span class="ss">:content_for</span><span class="o">]</span> <span class="o">=</span> <span class="ss">:charts_js</span>
-</pre></div>
+<pre><code class="ruby">Chartkick.options[:content_for] = :charts_js
+</code></pre>
 
 <p>Then, in your layout:</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="ss">:charts_js</span> <span class="cp">%&gt;</span><span class="x"> </span><span class="cp">&lt;%#</span><span class="c"> Rails </span><span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">yield_content</span> <span class="ss">:charts_js</span> <span class="cp">%&gt;</span><span class="x"> </span><span class="cp">&lt;%#</span><span class="c"> Padrino </span><span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= yield :charts_js %&gt; &lt;%# Rails %&gt;
+&lt;%= yield_content :charts_js %&gt; &lt;%# Padrino %&gt;
+</code></pre>
 
-<p>This is great for including all of your javascript at the bottom of the page.</p>
+<p>This is great for including all of your JavaScript at the bottom of the page.</p>
 
-<h3>
-<a name="user-content-data" class="anchor" href="#data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data</h3>
+<h3 id="data">Data</h3>
 
 <p>Pass data as a Hash or Array</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">pie_chart</span><span class="p">({</span><span class="s2">"Football"</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"Basketball"</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">})</span> <span class="cp">%&gt;</span><span class="x"></span>
-<span class="cp">&lt;%=</span> <span class="n">pie_chart</span> <span class="o">[[</span><span class="s2">"Football"</span><span class="p">,</span> <span class="mi">10</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s2">"Basketball"</span><span class="p">,</span> <span class="mi">5</span><span class="o">]]</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= pie_chart({&quot;Football&quot; =&gt; 10, &quot;Basketball&quot; =&gt; 5}) %&gt;
+&lt;%= pie_chart [[&quot;Football&quot;, 10], [&quot;Basketball&quot;, 5]] %&gt;
+</code></pre>
 
 <p>For multiple series, use the format</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="o">[</span>
-  <span class="p">{</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"Series A"</span><span class="p">,</span> <span class="ss">data</span><span class="p">:</span> <span class="n">series_a</span><span class="p">},</span>
-  <span class="p">{</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"Series B"</span><span class="p">,</span> <span class="ss">data</span><span class="p">:</span> <span class="n">series_b</span><span class="p">}</span>
-<span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart [
+  {name: &quot;Series A&quot;, data: series_a},
+  {name: &quot;Series B&quot;, data: series_b}
+] %&gt;
+</code></pre>
 
 <p>Times can be a time, a timestamp, or a string (strings are parsed)</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">line_chart</span><span class="p">({</span><span class="mi">20</span><span class="o">.</span><span class="n">day</span><span class="o">.</span><span class="n">ago</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1368174456</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"2013-05-07 00:00:00 UTC"</span> <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">})</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= line_chart({20.day.ago =&gt; 5, 1368174456 =&gt; 4, &quot;2013-05-07 00:00:00 UTC&quot; =&gt; 7}) %&gt;
+</code></pre>
 
-<h2>
-<a name="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+<h2 id="installation">Installation</h2>
 
-<p>Add this line to your application's Gemfile:</p>
+<p>Add this line to your application&#39;s Gemfile:</p>
 
-<div class="highlight highlight-ruby"><pre><span class="n">gem</span> <span class="s2">"chartkick"</span>
-</pre></div>
+<pre><code class="ruby">gem &quot;chartkick&quot;
+</code></pre>
 
-<p>And add the javascript files to your views.  These files must be included <strong>before</strong> the helper methods, unless using the <code>:content_for</code> option.</p>
+<p>And add the JavaScript files to your views.  These files must be included <strong>before</strong> the helper methods, unless using the <code>:content_for</code> option.</p>
 
 <p>For Google Charts, use:</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">"https://www.google.com/jsapi"</span><span class="p">,</span> <span class="s2">"chartkick"</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.google.com/jsapi&quot;, &quot;chartkick&quot; %&gt;
+</code></pre>
 
 <p>If you prefer Highcharts, use:</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">"path/to/highcharts.js"</span><span class="p">,</span> <span class="s2">"chartkick"</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= javascript_include_tag &quot;path/to/highcharts.js&quot;, &quot;chartkick&quot; %&gt;
+</code></pre>
 
-<h3>
-<a name="user-content-for-rails-31" class="anchor" href="#for-rails-31" aria-hidden="true"><span class="octicon octicon-link"></span></a>For Rails 3.1+</h3>
+<h3 id="for-rails-3-1">For Rails 3.1+</h3>
 
 <p><code>chartkick.js</code> runs as a Rails engine - no need to install it.</p>
 
-<h3>
-<a name="user-content-for-rails-23-and-30" class="anchor" href="#for-rails-23-and-30" aria-hidden="true"><span class="octicon octicon-link"></span></a>For Rails 2.3 and 3.0</h3>
+<h3 id="for-rails-2-3-and-3-0">For Rails 2.3 and 3.0</h3>
 
 <p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
 
 <p>For Rails 2.3, you must use a script tag for Google Charts due to <a href="https://rails.lighthouseapp.com/projects/8994/tickets/1664-javascript_include_tag-shouldnt-append-a-js-onto-external-urls">this bug</a>.</p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://www.google.com/jsapi"</span><span class="nt">&gt;&lt;/script&gt;</span>
-</pre></div>
+<pre><code class="html">&lt;script src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt;
+</code></pre>
 
-<h3>
-<a name="user-content-for-sinatra" class="anchor" href="#for-sinatra" aria-hidden="true"><span class="octicon octicon-link"></span></a>For Sinatra</h3>
+<h3 id="for-sinatra">For Sinatra</h3>
 
 <p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://www.google.com/jsapi"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"chartkick.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-</pre></div>
+<pre><code class="html">&lt;script src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;chartkick.js&quot;&gt;&lt;/script&gt;
+</code></pre>
 
-<h3>
-<a name="user-content-for-padrino" class="anchor" href="#for-padrino" aria-hidden="true"><span class="octicon octicon-link"></span></a>For Padrino</h3>
+<h3 id="for-padrino">For Padrino</h3>
 
 <p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
 
 <p>In addition, you must specify <code>http</code> or <code>https</code> if you use Google Charts, since Padrino tries to append <code>.js</code> to protocol relative urls.</p>
 
-<div class="highlight highlight-erb"><pre><span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s2">"https://www.google.com/jsapi"</span><span class="p">,</span> <span class="s2">"chartkick"</span> <span class="cp">%&gt;</span><span class="x"></span>
-</pre></div>
+<pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.google.com/jsapi&quot;, &quot;chartkick&quot; %&gt;
+</code></pre>
 
-<h3>
-<a name="user-content-localization" class="anchor" href="#localization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Localization</h3>
+<h3 id="localization">Localization</h3>
 
 <p>To specify a language for Google Charts, add:</p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;script&gt;</span>
-  <span class="kd">var</span> <span class="nx">Chartkick</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"language"</span><span class="o">:</span> <span class="s2">"de"</span><span class="p">};</span>
-<span class="nt">&lt;/script&gt;</span>
-</pre></div>
+<pre><code class="html">&lt;script&gt;
+  var Chartkick = {&quot;language&quot;: &quot;de&quot;};
+&lt;/script&gt;
+</code></pre>
 
-<p><strong>before</strong> the javascript files.</p>
+<p><strong>before</strong> the JavaScript files.</p>
 
-<h2>
-<a name="user-content-no-ruby-no-problem" class="anchor" href="#no-ruby-no-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>No Ruby? No Problem</h2>
+<h2 id="no-ruby-no-problem">No Ruby? No Problem</h2>
 
 <p>Check out <a href="https://github.com/ankane/chartkick.js">chartkick.js</a></p>
 
-<h2>
-<a name="user-content-credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h2>
+<h2 id="credits">Credits</h2>
 
 <p>Chartkick uses <a href="https://github.com/Do/iso8601.js">iso8601.js</a> to parse dates and times.</p>
 
-<h2>
-<a name="user-content-history" class="anchor" href="#history" aria-hidden="true"><span class="octicon octicon-link"></span></a>History</h2>
+<h2 id="history">History</h2>
 
 <p>View the <a href="https://github.com/ankane/chartkick/blob/master/CHANGELOG.md">changelog</a></p>
 
 <p>Chartkick follows <a href="http://semver.org/">Semantic Versioning</a></p>
 
-<h2>
-<a name="user-content-contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+<h2 id="contributing">Contributing</h2>
 
 <p>Everyone is encouraged to help improve this project. Here are a few ways you can help:</p>
 
-<ul class="task-list">
+<ul>
 <li><a href="https://github.com/ankane/chartkick/issues">Report bugs</a></li>
-<li>Fix bugs and <a href="https://github.com/ankane/chartkick/pulls">submit pull requests</a>
-</li>
+<li>Fix bugs and <a href="https://github.com/ankane/chartkick/pulls">submit pull requests</a></li>
 <li>Write, clarify, or fix documentation</li>
 <li>Suggest or add new features</li>
 </ul>
