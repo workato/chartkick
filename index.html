@@ -246,7 +246,7 @@ end
 <pre><code class="erb">&lt;%= line_chart data, library: {backgroundColor: &quot;#eee&quot;} %&gt;
 </code></pre>
 
-<p>See the documentation for <a href="https://developers.google.com/chart/interactive/docs/gallery">Google Charts</a> and <a href="http://api.highcharts.com/highcharts">Highcharts</a> for more info.</p>
+<p>See the documentation for <a href="https://developers.google.com/chart/interactive/docs/gallery">Google Charts</a>, <a href="http://api.highcharts.com/highcharts">Highcharts</a>, and <a href="http://www.chartjs.org/docs/">Chart.js</a> for more info.</p>
 
 <h3 id="global-options">Global Options</h3>
 
@@ -304,21 +304,41 @@ end
 <pre><code class="ruby">gem &quot;chartkick&quot;
 </code></pre>
 
-<p>And add the JavaScript files to your views.  These files must be included <strong>before</strong> the helper methods, unless using the <code>:content_for</code> option.</p>
+<p>Next, choose your charting library.</p>
 
-<p>For Google Charts, use:</p>
+<p><strong>Note:</strong> <code>application.js</code> must be included <strong>before</strong> the helper methods in your views, unless using the <code>:content_for</code> option.</p>
 
-<pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.google.com/jsapi&quot;, &quot;chartkick&quot; %&gt;
+<h4 id="google-charts">Google Charts</h4>
+
+<p>In <code>application.js</code>, add:</p>
+
+<pre><code class="js">//= require chartkick
 </code></pre>
 
-<p>If you prefer Highcharts, use:</p>
+<p>In your views, before <code>application.js</code>, add:</p>
 
-<pre><code class="erb">&lt;%= javascript_include_tag &quot;path/to/highcharts.js&quot;, &quot;chartkick&quot; %&gt;
+<pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.google.com/jsapi&quot; %&gt;
 </code></pre>
 
-<h3 id="for-rails-3-1">For Rails 3.1+</h3>
+<h4 id="highcharts">Highcharts</h4>
 
-<p><code>chartkick.js</code> runs as a Rails engine - no need to install it.</p>
+<p>Download <a href="https://code.highcharts.com/highcharts.js">highcharts.js</a> into <code>vendor/assets/javascripts</code>.</p>
+
+<p>In <code>application.js</code>, add:</p>
+
+<pre><code class="js">//= require highcharts
+//= require chartkick
+</code></pre>
+
+<p>Works with Highcharts 2.1+</p>
+
+<h4 id="chart-js-in-beta">Chart.js (in beta)</h4>
+
+<p>In <code>application.js</code>, add:</p>
+
+<pre><code class="js">//= require Chart.bundle
+//= require chartkick
+</code></pre>
 
 <h3 id="for-rails-2-3-and-3-0">For Rails 2.3 and 3.0</h3>
 
@@ -340,8 +360,6 @@ end
 <h3 id="for-padrino">For Padrino</h3>
 
 <p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
-
-<p>In addition, you must specify <code>http</code> or <code>https</code> if you use Google Charts, since Padrino tries to append <code>.js</code> to protocol relative urls.</p>
 
 <pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.google.com/jsapi&quot;, &quot;chartkick&quot; %&gt;
 </code></pre>
