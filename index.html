@@ -320,6 +320,14 @@ end
 
 <p><strong>Note:</strong> In the instructions below, <code>application.js</code> must be included <strong>before</strong> the helper methods in your views, unless using the <code>:content_for</code> option.</p>
 
+<h4 id="chart-js">Chart.js</h4>
+
+<p>In <code>application.js</code>, add:</p>
+
+<pre><code class="js">//= require Chart.bundle
+//= require chartkick
+</code></pre>
+
 <h4 id="google-charts">Google Charts</h4>
 
 <p>In <code>application.js</code>, add:</p>
@@ -343,14 +351,6 @@ end
 </code></pre>
 
 <p>Works with Highcharts 2.1+</p>
-
-<h4 id="chart-js-in-beta">Chart.js (in beta)</h4>
-
-<p>In <code>application.js</code>, add:</p>
-
-<pre><code class="js">//= require Chart.bundle
-//= require chartkick
-</code></pre>
 
 <h3 id="for-rails-2-3-and-3-0">For Rails 2.3 and 3.0</h3>
 
@@ -387,9 +387,40 @@ end
 
 <p><strong>before</strong> the JavaScript files.</p>
 
+<h2 id="javascript-api">JavaScript API</h2>
+
+<p>Access a chart with:</p>
+
+<pre><code class="javascript">var chart = Chartkick.charts[&quot;chart-id&quot;];
+</code></pre>
+
+<p>Get the underlying chart object with:</p>
+
+<pre><code class="javascript">chart.getChartObject();
+</code></pre>
+
+<p>You can also use:</p>
+
+<pre><code class="javascript">chart.getElement();
+chart.getData();
+chart.getOptions();
+</code></pre>
+
 <h2 id="no-ruby-no-problem">No Ruby? No Problem</h2>
 
 <p>Check out <a href="https://github.com/ankane/chartkick.js">chartkick.js</a></p>
+
+<h2 id="upgrading">Upgrading</h2>
+
+<h3 id="2-0">2.0</h3>
+
+<p>Breaking changes</p>
+
+<ul>
+<li>Chart.js is now the default adapter if multiple are loaded - yay open source!</li>
+<li>Axis types are automatically detected - no need for <code>discrete: true</code></li>
+<li>Better date support - dates are no longer treated as UTC</li>
+</ul>
 
 <h2 id="credits">Credits</h2>
 
