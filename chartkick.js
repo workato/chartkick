@@ -2,7 +2,7 @@
  * Chartkick.js
  * Create beautiful JavaScript charts with minimal code
  * https://github.com/ankane/chartkick.js
- * v2.0.0
+ * v2.0.1
  * MIT License
  */
 
@@ -680,7 +680,7 @@
                 }
               }
             };
-            var options = jsOptionsFunc(defaultOptions, hideLegend, setBarMin, setBarMax, setStacked)(chart.data, chart.options, chartOptions);
+            var options = jsOptionsFunc(defaultOptions, hideLegend, setBarMin, setBarMax, setStacked, setXtitle, setYtitle)(chart.data, chart.options, chartOptions);
             var data = createDataTable(chart.data, "string");
             chart.chart = new google.visualization.BarChart(chart.element);
             resize(function () {
@@ -877,6 +877,9 @@
 
         var setLabelSize = function (chart, data, options) {
           var maxLabelSize = Math.ceil(chart.element.offsetWidth / 4.0 / data.labels.length);
+          if (maxLabelSize > 25) {
+            maxLabelSize = 25;
+          }
           options.scales.xAxes[0].ticks.callback = function (value) {
             value = toStr(value);
             if (value.length > maxLabelSize) {
@@ -1012,9 +1015,10 @@
                 step = 1 / 24.0 / 60.0;
               }
 
+
               if (step && timeDiff > 0) {
                 var unitStepSize = Math.ceil(timeDiff / step / (chart.element.offsetWidth / 100.0));
-                if (week) {
+                if (week && step === 1) {
                   unitStepSize = Math.ceil(unitStepSize / 7.0) * 7;
                 }
                 options.scales.xAxes[0].time.unitStepSize = unitStepSize;
@@ -1046,6 +1050,11 @@
             // TODO fix area stacked
             // areaOptions.stacked = true;
           }
+          // fix for https://github.com/chartjs/Chart.js/issues/2441
+          if (!chart.options.max && allZeros(chart.data)) {
+            chart.options.max = 1;
+          }
+
           var options = jsOptions(chart.data, merge(areaOptions, chart.options));
 
           var data = createDataTable(chart, options, chartType || "line");
@@ -1082,7 +1091,7 @@
         this.renderColumnChart = function (chart, chartType) {
           var options;
           if (chartType === "bar") {
-            options = jsOptionsFunc(merge(baseOptions, defaultOptions), hideLegend, setBarMin, setBarMax, setStacked)(chart.data, chart.options);
+            options = jsOptionsFunc(merge(baseOptions, defaultOptions), hideLegend, setBarMin, setBarMax, setStacked, setXtitle, setYtitle)(chart.data, chart.options);
           } else {
             options = jsOptions(chart.data, chart.options);
           }
@@ -1099,6 +1108,41 @@
 
         this.renderBarChart = function (chart) {
           self.renderColumnChart(chart, "bar");
+        };
+
+        this.renderScatterChart = function (chart) {
+          var options = jsOptions(chart.data, chart.options);
+
+          var colors = chart.options.colors || defaultColors;
+
+          var datasets = [];
+          var series = chart.data;
+          for (var i = 0; i < series.length; i++) {
+            var s = series[i];
+            var d = [];
+            for (var j = 0; j < s.data.length; j++) {
+              d.push({
+                x: toFloat(s.data[j][0]),
+                y: toFloat(s.data[j][1])
+              });
+            }
+
+            datasets.push({
+              label: s.name,
+              showLine: false,
+              data: d,
+              borderColor: colors[i],
+              backgroundColor: colors[i],
+              pointBackgroundColor: colors[i]
+            })
+          }
+
+          var data = {datasets: datasets};
+
+          options.scales.xAxes[0].type = "linear";
+          options.scales.xAxes[0].position = "bottom";
+
+          drawChart(chart, "line", data, options);
         };
       };
 
@@ -1175,6 +1219,19 @@
 
   function isDate(obj) {
     return !isNaN(toDate(obj)) && toStr(obj).length >= 6;
+  }
+
+  function allZeros(data) {
+    var i, j, d;
+    for (i = 0; i < data.length; i++) {
+      d = data[i].data;
+      for (j = 0; j < d.length; j++) {
+        if (d[j][1] != 0) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   function detectDiscrete(series) {
@@ -1274,8 +1331,13 @@
   }
 
   function setElement(chart, element, dataSource, opts, callback) {
+    var elementId;
     if (typeof element === "string") {
+      elementId = element;
       element = document.getElementById(element);
+      if (!element) {
+        throw new Error("No element with id " + elementId);
+      }
     }
     chart.element = element;
     chart.options = opts || {};
