@@ -198,7 +198,7 @@ new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10":3,"20
 
 <h3 id="say-goodbye-to-timeouts">Say Goodbye To Timeouts</h3>
 
-<p>Make your pages load super fast and stop worrying about timeouts.  Give each chart its own endpoint.</p>
+<p>Make your pages load super fast and stop worrying about timeouts. Give each chart its own endpoint.</p>
 
 <pre><code class="erb">&lt;%= line_chart completed_tasks_charts_path %&gt;
 </code></pre>
@@ -211,8 +211,6 @@ new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10":3,"20
   end
 end
 </code></pre>
-
-<p><strong>Note:</strong> This feature requires <a href="http://jquery.com/">jQuery</a> or <a href="http://zeptojs.com/">Zepto</a> at the moment.</p>
 
 <p>For multiple series, add <code>chart_json</code> at the end.</p>
 
@@ -357,15 +355,6 @@ end
 
 <p>Works with Highcharts 2.1+</p>
 
-<h3 id="for-rails-2-3-and-3-0">For Rails 2.3 and 3.0</h3>
-
-<p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
-
-<p>For Rails 2.3, you must use a script tag for Google Charts due to <a href="https://rails.lighthouseapp.com/projects/8994/tickets/1664-javascript_include_tag-shouldnt-append-a-js-onto-external-urls">this bug</a>.</p>
-
-<pre><code class="html">&lt;script src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt;
-</code></pre>
-
 <h3 id="for-sinatra">For Sinatra</h3>
 
 <p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
@@ -385,12 +374,10 @@ end
 
 <p>To specify a language for Google Charts, add:</p>
 
-<pre><code class="html">&lt;script&gt;
-  var Chartkick = {&quot;language&quot;: &quot;de&quot;};
-&lt;/script&gt;
+<pre><code class="javascript">Chartkick.configure({&quot;language&quot;: &quot;de&quot;});
 </code></pre>
 
-<p><strong>before</strong> the JavaScript files.</p>
+<p>after the JavaScript files and before your charts.</p>
 
 <h2 id="javascript-api">JavaScript API</h2>
 
