@@ -104,16 +104,16 @@ new Chartkick.LineChart("chart-1", {"2016-05-13":2,"2016-05-14":5,"2016-05-15":3
 new Chartkick.PieChart(document.getElementById("chart-2"), [["Blueberry",44],["Strawberry",23],["Banana",22],["Apple",21],["Grape",13]], {});
 </script>
 
-<pre><code class="erb">&lt;%= pie_chart Goal.group(:name).count %&gt;
+<pre><code class="erb">&lt;%= pie_chart Yogurt.group(:flavor).count %&gt;
 </code></pre>
 
 <p>Column chart</p>
 
 <div id="chart-3" style="height: 300px; text-align: center; color: #999; line-height: 300px; font-size: 14px; font-family: Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif;">Loading...</div><script>
-new Chartkick.ColumnChart("chart-3", [["0",32],["1",46],["2",28],["3",21],["4",20],["5",13],["6",27]], {});
+new Chartkick.ColumnChart("chart-3", [["Sun",32],["Mon",46],["Tue",28],["Wed",21],["Thu",20],["Fri",13],["Sat",27]], {});
 </script>
 
-<pre><code class="erb">&lt;%= column_chart Task.group_by_hour_of_day(:created_at, format: &quot;%l %P&quot;).count %&gt;
+<pre><code class="erb">&lt;%= column_chart Order.group_by_day_of_week(:created_at, format: &quot;%a&quot;).count %&gt;
 </code></pre>
 
 <p>Bar chart</p>
