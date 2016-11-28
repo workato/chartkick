@@ -1,8 +1,8 @@
 /*
  * Chartkick.js
- * Create beautiful JavaScript charts with minimal code
+ * Create beautiful charts with one line of JavaScript
  * https://github.com/ankane/chartkick.js
- * v2.0.1
+ * v2.1.1
  * MIT License
  */
 
@@ -62,10 +62,10 @@
   function parseISO8601(input) {
     var day, hour, matches, milliseconds, minutes, month, offset, result, seconds, type, year;
     type = Object.prototype.toString.call(input);
-    if (type === '[object Date]') {
+    if (type === "[object Date]") {
       return input;
     }
-    if (type !== '[object String]') {
+    if (type !== "[object String]") {
       return;
     }
     matches = input.match(ISO8601_PATTERN);
@@ -83,7 +83,7 @@
         if (matches[17]) {
           offset += parseInt(matches[17], 10);
         }
-        offset *= matches[14] === '-' ? -1 : 1;
+        offset *= matches[14] === "-" ? -1 : 1;
         result -= offset * 60 * 1000;
       }
       return new Date(result);
@@ -164,16 +164,35 @@
   }
 
   function getJSON(element, url, success) {
-    var $ = window.jQuery || window.Zepto || window.$;
-    $.ajax({
-      dataType: "json",
-      url: url,
-      success: success,
-      error: function (jqXHR, textStatus, errorThrown) {
-        var message = (typeof errorThrown === "string") ? errorThrown : errorThrown.message;
-        chartError(element, message);
-      }
+    ajaxCall(url, success, function (jqXHR, textStatus, errorThrown) {
+      var message = (typeof errorThrown === "string") ? errorThrown : errorThrown.message;
+      chartError(element, message);
     });
+  }
+
+  function ajaxCall(url, success, error) {
+    var $ = window.jQuery || window.Zepto || window.$;
+
+    if ($) {
+      $.ajax({
+        dataType: "json",
+        url: url,
+        success: success,
+        error: error
+      });
+    } else {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          success(JSON.parse(xhr.responseText), xhr.statusText, xhr);
+        } else {
+          error(xhr, "error", xhr.statusText);
+        }
+      };
+      xhr.send();
+    }
   }
 
   function errorCatcher(chart, callback) {
@@ -344,7 +363,9 @@
           }
           var options = jsOptions(chart.data, chart.options, chartOptions), data, i, j;
           options.xAxis.type = chart.options.discrete ? "category" : "datetime";
-          options.chart.type = chartType;
+          if (!options.chart.type) {
+            options.chart.type = chartType;
+          }
           options.chart.renderTo = chart.element.id;
 
           var series = chart.data;
@@ -364,7 +385,7 @@
         this.renderScatterChart = function (chart) {
           var chartOptions = {};
           var options = jsOptions(chart.data, chart.options, chartOptions);
-          options.chart.type = 'scatter';
+          options.chart.type = "scatter";
           options.chart.renderTo = chart.element.id;
           options.series = chart.data;
           new Highcharts.Chart(options);
@@ -441,7 +462,7 @@
       };
       adapters.push(HighchartsAdapter);
     }
-    if (!GoogleChartsAdapter && window.google && window.google.setOnLoadCallback) {
+    if (!GoogleChartsAdapter && window.google && (window.google.setOnLoadCallback || window.google.charts)) {
       GoogleChartsAdapter = new function () {
         var google = window.google;
 
@@ -484,7 +505,12 @@
             if (config.language) {
               loadOptions.language = config.language;
             }
-            google.load("visualization", "1", loadOptions);
+
+            if (window.google.setOnLoadCallback) {
+              google.load("visualization", "1", loadOptions);
+            } else {
+              google.charts.load("current", loadOptions);
+            }
           }
         };
 
@@ -809,7 +835,10 @@
               }
             ]
           },
-          legend: {}
+          legend: {},
+          tooltips: {
+            displayColors: false
+          }
         };
 
         // http://there4.io/2012/05/02/google-chart-color-list/
@@ -958,7 +987,8 @@
             }
             labels.push(value);
             for (j = 0; j < series.length; j++) {
-              rows2[j].push(rows[i][j]);
+              // Chart.js doesn't like undefined
+              rows2[j].push(rows[i][j] || null);
             }
           }
 
@@ -1006,7 +1036,8 @@
               } else if (day || timeDiff > 10) {
                 options.scales.xAxes[0].time.unit = "day";
                 step = 1;
-              } else if (hour) {
+              } else if (hour || timeDiff > 0.5) {
+                options.scales.xAxes[0].time.displayFormats = {hour: "MMM D, h a"};
                 options.scales.xAxes[0].time.unit = "hour";
                 step = 1 / 24.0;
               } else if (minute) {
@@ -1014,7 +1045,6 @@
                 options.scales.xAxes[0].time.unit = "minute";
                 step = 1 / 24.0 / 60.0;
               }
-
 
               if (step && timeDiff > 0) {
                 var unitStepSize = Math.ceil(timeDiff / step / (chart.element.offsetWidth / 100.0));
@@ -1385,7 +1415,14 @@
     Timeline: function (element, dataSource, opts) {
       setElement(this, element, dataSource, opts, processTimelineData);
     },
-    charts: {}
+    charts: {},
+    configure: function (options) {
+      for (var key in options) {
+        if (options.hasOwnProperty(key)) {
+          config[key] = options[key];
+        }
+      }
+    }
   };
 
   if (typeof module === "object" && typeof module.exports === "object") {

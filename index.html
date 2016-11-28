@@ -54,7 +54,7 @@
       }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
-    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="chartkick.js"></script>
 
     <link rel="stylesheet" href="github.css">
@@ -341,7 +341,7 @@ end
 
 <p>In your views, before <code>application.js</code>, add:</p>
 
-<pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.google.com/jsapi&quot; %&gt;
+<pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.gstatic.com/charts/loader.js&quot; %&gt;
 </code></pre>
 
 <h4 id="highcharts">Highcharts</h4>
@@ -356,19 +356,11 @@ end
 
 <p>Works with Highcharts 2.1+</p>
 
-<h3 id="for-sinatra">For Sinatra</h3>
+<h3 id="sinatra-and-padrino">Sinatra and Padrino</h3>
 
-<p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
+<p>You must include <code>chartkick.js</code> manually. <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
 
-<pre><code class="html">&lt;script src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;chartkick.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-
-<h3 id="for-padrino">For Padrino</h3>
-
-<p>You must include <code>chartkick.js</code> manually.  <a href="https://raw.github.com/ankane/chartkick/master/app/assets/javascripts/chartkick.js">Download it here</a></p>
-
-<pre><code class="erb">&lt;%= javascript_include_tag &quot;https://www.google.com/jsapi&quot;, &quot;chartkick&quot; %&gt;
+<pre><code class="html">&lt;script src=&quot;chartkick.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 
 <h3 id="localization">Localization</h3>
