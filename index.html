@@ -237,6 +237,15 @@ new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10":3,"20
 <p>Axis titles</p>
 <pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">xtitle: </span><span class="s2">"Time"</span><span class="p">,</span> <span class="ss">ytitle: </span><span class="s2">"Population"</span> <span class="cp">%&gt;</span>
 </code></pre>
+<p>Straight lines between points instead of a curve</p>
+<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">curve: </span><span class="kp">false</span> <span class="cp">%&gt;</span>
+</code></pre>
+<p>Show or hide legend</p>
+<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">legend: </span><span class="kp">false</span> <span class="cp">%&gt;</span>
+</code></pre>
+<p>Specify legend position</p>
+<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">legend: </span><span class="s2">"bottom"</span> <span class="cp">%&gt;</span>
+</code></pre>
 <p>Donut chart</p>
 <pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">pie_chart</span> <span class="n">data</span><span class="p">,</span> <span class="ss">donut: </span><span class="kp">true</span> <span class="cp">%&gt;</span>
 </code></pre>
@@ -341,7 +350,7 @@ new Chartkick.LineChart("download", {"2016-05-13":2,"2016-05-14":5,"2016-05-15":
 <h3 id="localization">Localization</h3>
 
 <p>To specify a language for Google Charts, add:</p>
-<pre class="highlight javascript"><code><span class="nx">Chartkick</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span><span class="s2">"language"</span><span class="p">:</span> <span class="s2">"de"</span><span class="p">});</span>
+<pre class="highlight javascript"><code><span class="nx">Chartkick</span><span class="p">.</span><span class="nx">configure</span><span class="p">({</span><span class="na">language</span><span class="p">:</span> <span class="s2">"de"</span><span class="p">});</span>
 </code></pre>
 <p>after the JavaScript files and before your charts.</p>
 
@@ -362,15 +371,21 @@ new Chartkick.LineChart("download", {"2016-05-13":2,"2016-05-14":5,"2016-05-15":
 <pre class="highlight javascript"><code><span class="nx">chart</span><span class="p">.</span><span class="nx">getElement</span><span class="p">()</span>
 <span class="nx">chart</span><span class="p">.</span><span class="nx">getData</span><span class="p">()</span>
 <span class="nx">chart</span><span class="p">.</span><span class="nx">getOptions</span><span class="p">()</span>
+<span class="nx">chart</span><span class="p">.</span><span class="nx">getAdapter</span><span class="p">()</span>
 </code></pre>
 <p>Update the data with:</p>
 <pre class="highlight javascript"><code><span class="nx">chart</span><span class="p">.</span><span class="nx">updateData</span><span class="p">(</span><span class="nx">newData</span><span class="p">)</span>
 </code></pre>
 <p>You can also specify new options:</p>
-<pre class="highlight javascript"><code><span class="nx">chart</span><span class="p">.</span><span class="nx">updateData</span><span class="p">(</span><span class="nx">newData</span><span class="p">,</span> <span class="nx">newOptions</span><span class="p">)</span>
+<pre class="highlight javascript"><code><span class="nx">chart</span><span class="p">.</span><span class="nx">setOptions</span><span class="p">(</span><span class="nx">newOptions</span><span class="p">)</span>
+<span class="c1">// or</span>
+<span class="nx">chart</span><span class="p">.</span><span class="nx">updateData</span><span class="p">(</span><span class="nx">newData</span><span class="p">,</span> <span class="nx">newOptions</span><span class="p">)</span>
 </code></pre>
 <p>Refresh the data from a remote source:</p>
 <pre class="highlight javascript"><code><span class="nx">chart</span><span class="p">.</span><span class="nx">refreshData</span><span class="p">()</span>
+</code></pre>
+<p>Redraw the chart with:</p>
+<pre class="highlight javascript"><code><span class="nx">chart</span><span class="p">.</span><span class="nx">redraw</span><span class="p">()</span>
 </code></pre>
 <p>Loop over charts with:</p>
 <pre class="highlight javascript"><code><span class="nx">Chartkick</span><span class="p">.</span><span class="nx">eachChart</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span><span class="nx">chart</span><span class="p">)</span> <span class="p">{</span>
