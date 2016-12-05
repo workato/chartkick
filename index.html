@@ -277,6 +277,22 @@ new Chartkick.LineChart("chart-7", [{"name":"Workout","data":{"2013-02-10":3,"20
 </code></pre>
 <p>This is great for including all of your JavaScript at the bottom of the page.</p>
 
+<h3 id="data">Data</h3>
+
+<p>Pass data as a Hash or Array</p>
+<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">pie_chart</span><span class="p">({</span><span class="s2">"Football"</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"Basketball"</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">})</span> <span class="cp">%&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">pie_chart</span> <span class="p">[[</span><span class="s2">"Football"</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="s2">"Basketball"</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span> <span class="cp">%&gt;</span>
+</code></pre>
+<p>For multiple series, use the format</p>
+<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="p">[</span>
+  <span class="p">{</span><span class="ss">name: </span><span class="s2">"Series A"</span><span class="p">,</span> <span class="ss">data: </span><span class="n">series_a</span><span class="p">},</span>
+  <span class="p">{</span><span class="ss">name: </span><span class="s2">"Series B"</span><span class="p">,</span> <span class="ss">data: </span><span class="n">series_b</span><span class="p">}</span>
+<span class="p">]</span> <span class="cp">%&gt;</span>
+</code></pre>
+<p>Times can be a time, a timestamp, or a string (strings are parsed)</p>
+<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span><span class="p">({</span><span class="mi">20</span><span class="p">.</span><span class="nf">day</span><span class="p">.</span><span class="nf">ago</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1368174456</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"2013-05-07 00:00:00 UTC"</span> <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">})</span> <span class="cp">%&gt;</span>
+</code></pre>
+
 <h3 id="download-charts">Download Charts</h3>
 
 <p><em>Chart.js only</em></p>
@@ -294,21 +310,6 @@ new Chartkick.LineChart("download", {"2016-05-13":2,"2016-05-14":5,"2016-05-15":
 </code></pre>
 <p><strong>Note:</strong> Safari will open the image in a new window instead of downloading.</p>
 
-<h3 id="data">Data</h3>
-
-<p>Pass data as a Hash or Array</p>
-<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">pie_chart</span><span class="p">({</span><span class="s2">"Football"</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"Basketball"</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">})</span> <span class="cp">%&gt;</span>
-<span class="cp">&lt;%=</span> <span class="n">pie_chart</span> <span class="p">[[</span><span class="s2">"Football"</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="s2">"Basketball"</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span> <span class="cp">%&gt;</span>
-</code></pre>
-<p>For multiple series, use the format</p>
-<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span> <span class="p">[</span>
-  <span class="p">{</span><span class="ss">name: </span><span class="s2">"Series A"</span><span class="p">,</span> <span class="ss">data: </span><span class="n">series_a</span><span class="p">},</span>
-  <span class="p">{</span><span class="ss">name: </span><span class="s2">"Series B"</span><span class="p">,</span> <span class="ss">data: </span><span class="n">series_b</span><span class="p">}</span>
-<span class="p">]</span> <span class="cp">%&gt;</span>
-</code></pre>
-<p>Times can be a time, a timestamp, or a string (strings are parsed)</p>
-<pre class="highlight erb"><code><span class="cp">&lt;%=</span> <span class="n">line_chart</span><span class="p">({</span><span class="mi">20</span><span class="p">.</span><span class="nf">day</span><span class="p">.</span><span class="nf">ago</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1368174456</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"2013-05-07 00:00:00 UTC"</span> <span class="o">=&gt;</span> <span class="mi">7</span><span class="p">})</span> <span class="cp">%&gt;</span>
-</code></pre>
 <h2 id="installation">Installation</h2>
 
 <p>Add this line to your application&#39;s Gemfile:</p>
