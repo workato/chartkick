@@ -147,10 +147,10 @@ new Chartkick.ColumnChart("chart-3", [["Sun",32],["Mon",46],["Tue",28],["Wed",21
   Loading...
 </div>
 <script>
-  new Chartkick.ScatterChart("chart-8", [[174.0, 80.0], [176.5, 82.3], [180.3, 73.6], [167.6, 74.1], [188.0, 85.9]]);
+  new Chartkick.ScatterChart("chart-8", [[174.0, 80.0], [176.5, 82.3], [180.3, 73.6], [167.6, 74.1], [188.0, 85.9]], {xtitle: "Size", ytitle: "Population"});
 </script>
 
-<pre><code class="erb">&lt;%= scatter_chart City.pluck(:size, :population) %&gt;
+<pre><code class="erb">&lt;%= scatter_chart City.pluck(:size, :population), xtitle: &quot;Size&quot;, ytitle: &quot;Population&quot; %&gt;
 </code></pre>
 
 <p>Geo chart <span class="only">Google Charts</span></p>
