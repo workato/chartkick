@@ -1011,7 +1011,7 @@
 
         this.renderTable = function (chart) {
           waitForLoaded('table', function () {
-            var options = merge(merge(defaultOptions, chartOptions), chart.options.library || {});
+            var options = merge(defaultOptions, chart.options.library || {});
 
             var data = new google.visualization.DataTable();
             for (var i = 0; i < chart.data[0].length; i++) {
