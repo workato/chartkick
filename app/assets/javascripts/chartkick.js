@@ -1011,7 +1011,11 @@
 
         this.renderTable = function (chart) {
           waitForLoaded('table', function () {
-            var options = merge(defaultOptions, chart.options.library || {});
+            var defaultOptions = {
+              fontName: "'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif"
+            };
+
+            var options = merge(defaultOptions, chart.options || {});
 
             var data = new google.visualization.DataTable();
             for (var i = 0; i < chart.data[0].length; i++) {
