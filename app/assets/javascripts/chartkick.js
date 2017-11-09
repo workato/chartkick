@@ -616,7 +616,7 @@
           var cb, call;
           for (var i = 0; i < callbacks.length; i++) {
             cb = callbacks[i];
-            call = google.visualization && ((cb.pack === "corechart" && google.visualization.LineChart) || (cb.pack === "timeline" && google.visualization.Timeline));
+            call = google.visualization && ((cb.pack === "corechart" && google.visualization.LineChart) || (cb.pack === "timeline" && google.visualization.Timeline) || (cb.pack === 'table' && google.visualization.Table));
             if (call) {
               cb.callback();
               callbacks.splice(i, 1);
@@ -1002,6 +1002,24 @@
 
             chart.element.style.lineHeight = "normal";
             chart.chart = new google.visualization.Timeline(chart.element);
+
+            resize(function () {
+              chart.chart.draw(data, options);
+            });
+          });
+        };
+
+        this.renderTable = function (chart) {
+          waitForLoaded('table', function () {
+            var options = merge(merge(defaultOptions, chartOptions), chart.options.library || {});
+
+            var data = new google.visualization.DataTable();
+            for (var i = 0; i < chart.data[0].length; i++) {
+              data.addColumn.apply(data, chart.data[0][i]);
+            }
+            data.addRows(chart.data.slice(1));
+
+            chart.chart = new google.visualization.Table(chart.element);
 
             resize(function () {
               chart.chart.draw(data, options);
@@ -1788,6 +1806,9 @@
     },
     Timeline: function (element, dataSource, options) {
       createChart("Timeline", this, element, dataSource, options, processTime);
+    },
+    Table: function (element, dataSource, options) {
+      createChart("Table", this, element, dataSource, options);
     },
     charts: {},
     configure: function (options) {
